@@ -2,7 +2,15 @@
 #include <stdlib.h>
 #include "lib.h"
 
-#define ISSPACE(c) ((c) == ' '||(c) == '\t')
+/*
+ * C89 7.10.1.4: strtoul skips leading white-space characters, "as
+ * specified by the isspace function" -- which is all six of these, not
+ * just the two. A caller handing it a number at the start of a line of
+ * network or file text gets 0 and no error otherwise, because the \r\n
+ * in front of it looks to this macro like the end of the number.
+ */
+#define ISSPACE(c) ((c) == ' ' || (c) == '\t' || (c) == '\n' \
+                 || (c) == '\v' || (c) == '\f' || (c) == '\r')
 #define ISDIGIT(c) ((c) >= '0' && (c) <= '9')
 
 #if defined(__arm__)

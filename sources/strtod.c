@@ -70,7 +70,9 @@
 #endif
 
 
-#define ISSPACE(c)  ((c) == ' ' || (c) == '\t')
+/* all six isspace characters, not two -- see strtoul_int.c */
+#define ISSPACE(c)  ((c) == ' ' || (c) == '\t' || (c) == '\n' \
+                  || (c) == '\v' || (c) == '\f' || (c) == '\r')
 #define ISDIGIT(c)  ((c) >= '0' && (c) <= '9')
 
 
